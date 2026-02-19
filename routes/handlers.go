@@ -23,13 +23,20 @@ func SetDB(db *gorm.DB) {
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	cat := r.URL.Query().Get("cat")
+	search := r.URL.Query().Get("search")
 	var quotes []Quote
 
-	if cat == "" {
-		DB.Find(&quotes)
-	} else {
-		DB.Where("category = ?", cat).Find(&quotes) // Filtre par catégorie
+	query := DB
+
+	if cat != "" {
+		query = query.Where("category = ?", cat)
 	}
+
+	if search != "" {
+		query = query.Where("author ILIKE ?", "%"+search+"%")
+	}
+
+	query.Find(&quotes)
 
 	tmpl := template.Must(template.ParseFiles("templates/start.html"))
 	tmpl.Execute(w, quotes)

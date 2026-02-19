@@ -1,184 +1,132 @@
-/* Importation d'une police moderne */
+/* --- CONFIGURATION GÉNÉRALE --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
 :root {
-    --bg-dark: #0f172a;        /* Noir bleuté profond */
-    --card-dark: #1e293b;     /* Gris-bleu pour les cartes */
-    --accent-blue: #38bdf8;    /* Bleu ciel vif */
+    --bg-dark: #0f172a;
+    --card-dark: #1e293b;
+    --accent-blue: #38bdf8;
     --gradient-blue: linear-gradient(135deg, #38bdf8 0%, #1d4ed8 100%);
     --text-main: #f1f5f9;
-    --text-muted: #94a3b8;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-dark);
-    background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
     color: var(--text-main);
     max-width: 900px;
     margin: 0 auto;
     padding: 40px 20px;
-    line-height: 1.6;
-    min-height: 100vh;
 }
 
-h1 {
-    text-align: center;
-    font-weight: 800;
-    font-size: 2.5rem;
-    background: var(--gradient-blue);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 40px;
-    letter-spacing: -1px;
-}
+h1 { text-align: center; font-weight: 800; background: var(--gradient-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* --- FILTRES (BOUTONS DÉGRADÉS) --- */
-.filters {
+/* --- BARRE DE RECHERCHE SIMPLE (SANS ROND BLEU) --- */
+.search-bar {
+    margin: 0 auto 30px auto;
+    max-width: 500px;
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 50px;
-    flex-wrap: wrap;
 }
 
-.filters a {
-    text-decoration: none;
-    color: var(--text-main);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 22px;
-    border-radius: 12px;
-    font-size: 0.9em;
+.search-bar form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    background: none !important; /* Force l'annulation du style de l'autre form */
+    border: none !important;
+    padding: 0 !important;
+}
+
+.input-search {
+    flex-grow: 1;
+    height: 40px !important; /* Hauteur fine */
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 0 15px !important;
+    color: white !important;
+    margin: 0 !important;
+}
+
+.btn-search {
+    height: 40px !important;
+    padding: 0 20px !important;
+    background: var(--card-dark) !important;
+    color: var(--accent-blue) !important;
+    border: 1px solid var(--accent-blue) !important;
+    border-radius: 8px !important;
+    cursor: pointer;
     font-weight: 600;
-    border: 1px solid rgba(56, 189, 248, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: auto !important; /* Empêche de prendre toute la largeur */
 }
 
-.filters a:hover {
-    background: var(--gradient-blue);
-    border-color: transparent;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-    transform: translateY(-3px);
+.btn-search:hover {
+    background: var(--accent-blue) !important;
+    color: var(--bg-dark) !important;
 }
 
-/* --- CARTES DE CITATIONS (STYLE VERRE/GLASSMORPHISM) --- */
-.card {
+/* --- FILTRES --- */
+.filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+.filters a { text-decoration: none; color: white; background: rgba(255, 255, 255, 0.05); padding: 8px 16px; border-radius: 8px; font-size: 0.9em; border: 1px solid rgba(56, 189, 248, 0.2); transition: 0.3s; }
+.filters a:hover { background: var(--gradient-blue); }
+
+/* --- CARTES --- */
+.card { background: var(--card-dark); padding: 25px; border-radius: 15px; margin-bottom: 20px; position: relative; border-left: 4px solid var(--accent-blue); }
+.quote-text { font-size: 1.2em; margin-bottom: 10px; display: block; }
+.quote-author { color: var(--accent-blue); font-style: italic; opacity: 0.8; }
+.delete-btn { position: absolute; top: 10px; right: 15px; text-decoration: none; color: rgba(255, 255, 255, 0.2); font-size: 1.2rem; }
+.delete-btn:hover { color: #ef4444; }
+
+/* --- FORMULAIRE D'AJOUT (LE GROS EN BAS) --- */
+form {
     background: var(--card-dark);
     padding: 30px;
     border-radius: 20px;
+    margin-top: 50px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 25px;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 4px; height: 100%;
-    background: var(--gradient-blue);
-}
-
-.card:hover {
-    transform: scale(1.02);
-    border-color: var(--accent-blue);
-}
-
-.card p:first-child {
-    font-size: 1.4em;
-    font-weight: 400;
-    color: #fff;
-    margin-bottom: 15px;
-}
-
-.card span {
-    font-size: 0.7em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--accent-blue);
-    border: 1px solid var(--accent-blue);
-    padding: 4px 10px;
-    border-radius: 6px;
-}
-
-/* --- FORMULAIRE NOIR MODERNE --- */
-form {
-    background: rgba(30, 41, 59, 0.7);
-    padding: 40px;
-    border-radius: 24px;
-    margin-top: 60px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-form h3 {
-    margin-bottom: 25px;
-    font-size: 1.5rem;
-    color: var(--accent-blue);
-}
-
-input, select {
+form input, form select {
     width: 100%;
-    padding: 14px;
+    padding: 12px;
     margin-bottom: 15px;
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--bg-dark);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     color: white;
-    font-family: inherit;
-    transition: 0.3s;
+    box-sizing: border-box;
 }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
-}
-
-button {
+button[type="submit"] {
     width: 100%;
     background: var(--gradient-blue);
     color: white;
-    padding: 16px;
+    padding: 15px;
     border: none;
-    border-radius: 12px;
-    font-size: 1.1em;
+    border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.4s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-button:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 30px rgba(29, 78, 216, 0.5);
+.magic-section {
+    text-align: center;
+    margin-top: 30px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    h1 { font-size: 1.8rem; }
-    form { padding: 25px; }
-}
-
-.card {
-    position: relative; /* Permet de placer le bouton par rapport à la carte */
-}
-
-.delete-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 1.5rem;
-    font-weight: bold;
+.btn-magic {
+    background: linear-gradient(135deg, #a855f7 0%, #38bdf8 100%) !important;
+    color: white !important;
+    padding: 12px 25px !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    width: auto !important; /* Pour qu'il ne soit pas énorme */
 }
 
-.delete-btn:hover {
-    color: #ef4444; /* Rouge vif au survol */
-    transform: scale(1.2);
+.btn-magic:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
 }

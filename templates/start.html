@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1> Bienvenue dans le générateur de citation ! </h1>
+    <div class="search-bar">
+    <form action="/" method="GET">
+        <input type="text" name="search" class="input-search" placeholder="Rechercher un auteur...">
+        <button type="submit" class="btn-search">Rechercher</button>
+    </form>
+        </div>
+
+    <div class="magic-section">
+        <button type="button" id="api-btn" class="btn-magic">✨ Générer une pépite magique</button>
+    </div>
+
     <div class="filters">
         <a href='/'> Toutes </a>
         <a href="/?cat=motivation"> Motivation </a>
@@ -41,6 +52,28 @@
         </select>
         <button type="submit">Enregistrer dans la base</button>
     </form>
+<script>
+document.getElementById('api-btn').addEventListener('click', function() {
+    const btn = this;
+    const inputQuote = document.querySelector('input[name="text"]');
+    const inputAuthor = document.querySelector('input[name="author"]');
     
+    btn.innerText = "Recherche en cours...";
+
+    fetch('https://api.adviceslip.com/advice')
+        .then(response => response.json())
+        .then(data => {
+            inputQuote.value = data.slip.advice;
+            inputAuthor.value = "Sagesse du Web"; 
+            
+            btn.innerText = "Citation générée !";
+            setTimeout(() => { btn.innerText = "Générer une autre pépite"; }, 2000);
+        })
+        .catch(err => {
+            console.error("Erreur détaillée:", err);
+            btn.innerText = "Erreur (Vérifie ta connexion)";
+        });
+});
+</script>
 </body>
 </html>
