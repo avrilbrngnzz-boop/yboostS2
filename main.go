@@ -2,16 +2,32 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"yboostS2/routes"
 )
 
 func main() {
+	db, err := InitDB()
+
+	if err != nil {
+		log.Fatal("Impossible de connecter la base :", err)
+	}
+
+	db.AutoMigrate(&routes.Quote{})
+
+	routes.SetDB(db)
+
 	http.HandleFunc("/", routes.HomeHandler)
+	http.HandleFunc("/add", routes.AddHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	fmt.Println("Serveur lancé sur http://localhost:8080")
-	ip := ":"
+
 	port := os.Getenv("PORT")
-	http.ListenAndServe(ip+port, nil)
+	if port == "" {
+		port = "8080"
+	}
+
+	fmt.Println("Serveur lancé sur http://localhost:" + port)
+	http.ListenAndServe(":"+port, nil)
 }

@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/yboost.css">
+    <title>Générateur de citation</title>
 </head>
 <body>
-    <h1> hello hello </h1>
+    <h1> Bienvenue dans le générateur de citation ! </h1>
+    <div class="filters">
+        <a href='/'> Toutes </a>
+        <a href="/?cat=motivation"> Motivation </a>
+        <a href="/?cat=confiance"> Confiance </a>
+        <a href="/?cat=amitié"> Amitié </a>
+        <a href="/?cat=amour"> Amour </a>
+    </div>
+  
+    {{range .}}
+    <div class="card">
+        <p style="font-size: 1.2em; font-style: italic;">"{{.Text}}"</p>
+        <p style="text-align: right; color: #777;">— {{.Author}}</p>
+        <span style="font-size: 10px; text-transform: uppercase; background: #eee; padding: 3px 7px; border-radius: 3px;">{{.Category}}</span>
+    </div>
+    {{else}}
+    <p>Aucune citation dans cette catégorie. Ajoutez-en une !</p>
+    {{end}}
+
+    <form action="/add" method="POST">
+        <h3>Ajouter une nouvelle pépite</h3>
+        <input type="text" name="text" placeholder="La citation..." required>
+        <input type="text" name="author" placeholder="L'auteur..." required>
+        <select name="category">
+            <option value="motivation">Motivation</option>
+            <option value="amour">Amour</option>
+            <option value="confiance">Confiance</option>
+        </select>
+        <button type="submit">Enregistrer dans la base</button>
+    </form>
+    
 </body>
 </html>
