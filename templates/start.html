@@ -16,15 +16,17 @@
         <a href="/?cat=amour"> Amour </a>
     </div>
   
-    {{range .}}
-    <div class="card">
-        <p style="font-size: 1.2em; font-style: italic;">"{{.Text}}"</p>
-        <p style="text-align: right; color: #777;">— {{.Author}}</p>
-        <span style="font-size: 10px; text-transform: uppercase; background: #eee; padding: 3px 7px; border-radius: 3px;">{{.Category}}</span>
+    <div class="quotes-container">
+        {{range .}}
+        <div class="card">
+            <p class="quote-text">"{{.Text}}"</p>
+            <p class="quote-author">— {{.Author}}</p>
+            <span class="quote-category">{{.Category}}</span>
+        </div>
+        {{else}}
+        <p class="empty-msg">Aucune citation dans cette catégorie. Ajoutez-en une !</p>
+        {{end}}
     </div>
-    {{else}}
-    <p>Aucune citation dans cette catégorie. Ajoutez-en une !</p>
-    {{end}}
 
     <form action="/add" method="POST">
         <h3>Ajouter une nouvelle pépite</h3>
