@@ -19,10 +19,12 @@
     <div class="quotes-container">
         {{range .}}
         <div class="card">
+            <a href="/delete?id={{.ID}}" class="delete-btn" onclick="return confirm('Supprimer cette pépite ?')">&times;</a>
+    
             <p class="quote-text">"{{.Text}}"</p>
             <p class="quote-author">— {{.Author}}</p>
             <span class="quote-category">{{.Category}}</span>
-        </div>
+    </div>
         {{else}}
         <p class="empty-msg">Aucune citation dans cette catégorie. Ajoutez-en une !</p>
         {{end}}

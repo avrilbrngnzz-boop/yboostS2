@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -45,4 +46,18 @@ func AddHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 
+}
+
+func DelHandler(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	fmt.Println("--- DEBUG SUPPRESSION ---")
+	fmt.Println("ID reçu depuis l'URL :", id)
+
+	if id != "" {
+		tx := DB.Unscoped().Delete(&Quote{}, id)
+
+		fmt.Println("Erreur éventuelle :", tx.Error)
+		fmt.Println("Nombre de lignes impactées :", tx.RowsAffected)
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
