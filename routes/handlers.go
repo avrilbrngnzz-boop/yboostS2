@@ -68,3 +68,16 @@ func DelHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
+
+func RandomHandler(w http.ResponseWriter, r *http.Request) {
+	var quote Quote
+	result := DB.Order("RANDOM()").First(&quote)
+
+	if result.Error != nil {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	tmpl := template.Must(template.ParseFiles("templates/start.html"))
+	tmpl.Execute(w, []Quote{quote})
+}

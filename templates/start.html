@@ -16,7 +16,8 @@
         </div>
 
     <div class="magic-section">
-        <button type="button" id="api-btn" class="btn-magic">✨ Générer une pépite magique</button>
+        <button type="button" id="api-btn" class="btn-magic">générer une pépite</button>
+        <a href="/random" class="btn-random">Citation au hasard</a>
     </div>
 
     <div class="filters">
@@ -25,13 +26,15 @@
         <a href="/?cat=confiance"> Confiance </a>
         <a href="/?cat=amitié"> Amitié </a>
         <a href="/?cat=amour"> Amour </a>
+        <a href="/?cat=sagesse"> Sagesse </a>
+        <a href="/?cat=humour"> Humour </a>
     </div>
   
     <div class="quotes-container">
         {{range .}}
         <div class="card">
             <a href="/delete?id={{.ID}}" class="delete-btn" onclick="return confirm('Supprimer cette pépite ?')">&times;</a>
-    
+            <button class="copy-btn" onclick="copyQuote('{{.Text}}')">copier</button>
             <p class="quote-text">"{{.Text}}"</p>
             <p class="quote-author">— {{.Author}}</p>
             <span class="quote-category">{{.Category}}</span>
@@ -49,6 +52,9 @@
             <option value="motivation">Motivation</option>
             <option value="amour">Amour</option>
             <option value="confiance">Confiance</option>
+            <option value="amitié">Amitié</option> 
+            <option value="sagesse">Sagesse</option>
+            <option value="humour">Humour</option>
         </select>
         <button type="submit">Enregistrer dans la base</button>
     </form>
@@ -74,6 +80,20 @@ document.getElementById('api-btn').addEventListener('click', function() {
             btn.innerText = "Erreur (Vérifie ta connexion)";
         });
 });
+function copyQuote(text) {
+    navigator.clipboard.writeText(text);
+    
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = "✅ Copié !";
+    btn.style.borderColor = "#4ade80"; 
+    
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.borderColor = ""; 
+    }, 2000);
+}
 </script>
 </body>
 </html>

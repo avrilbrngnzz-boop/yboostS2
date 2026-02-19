@@ -21,6 +21,7 @@ func main() {
 	http.HandleFunc("/", routes.HomeHandler)
 	http.HandleFunc("/add", routes.AddHandler)
 	http.HandleFunc("/delete", routes.DelHandler)
+	http.HandleFunc("/random", routes.RandomHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	port := os.Getenv("PORT")
