@@ -1,23 +1,33 @@
 /* --- CONFIGURATION GÉNÉRALE --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
 
 :root {
     --bg-dark: #0f172a;
-    --card-dark: #1e293b;
-    --accent-blue: #38bdf8;
-    --gradient-blue: linear-gradient(135deg, #38bdf8 0%, #1d4ed8 100%);
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --accent-primary: #38bdf8; /* Bleu clair */
+    --accent-secondary: #a855f7; /* Violet */
+    --gradient-main: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg-dark);
-    background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.15) 0%, transparent 25%);
     color: var(--text-main);
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px;
     line-height: 1.6;
     min-height: 100vh;
 }
@@ -25,208 +35,217 @@ body {
 h1 { 
     text-align: center; 
     font-weight: 800; 
-    font-size: 2.5rem;
-    background: var(--gradient-blue); 
+    font-size: 3rem;
+    background: var(--gradient-main); 
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    letter-spacing: -1px;
 }
 
-/* --- BARRE DE RECHERCHE SLIM --- */
-.search-bar {
-    margin: 0 auto 30px auto;
-    max-width: 500px;
-    display: flex;
+/* --- BOUTONS UNIFORMISÉS --- */
+/* Style de base pour TOUS les boutons et liens-boutons */
+.btn-search, .btn-magic, .btn-random, .copy-btn, button[type="submit"], .filters a {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    text-decoration: none;
+    gap: 8px;
+}
+
+/* Boutons de type "Primary" (Gradients) */
+.btn-magic, button[type="submit"] {
+    background: var(--gradient-main);
+    color: white;
+    border: none;
+    box-shadow: 0 10px 20px -5px rgba(168, 85, 247, 0.4);
+}
+
+.btn-magic:hover, button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(168, 85, 247, 0.5);
+    filter: brightness(1.1);
+}
+
+/* Boutons de type "Outline" (Bordures) */
+.btn-search, .btn-random, .copy-btn, .filters a {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-search:hover, .btn-random:hover, .filters a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* --- BARRE DE RECHERCHE --- */
+.search-bar {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
 }
 
 .search-bar form {
     display: flex;
-    gap: 10px;
-    width: 100%;
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    backdrop-filter: none !important;
+    gap: 12px;
 }
 
 .input-search {
     flex-grow: 1;
-    height: 40px !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    padding: 0 15px !important;
-    color: white !important;
-    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition);
 }
 
-.btn-search {
-    height: 40px !important;
-    padding: 0 20px !important;
-    background: var(--card-dark) !important;
-    color: var(--accent-blue) !important;
-    border: 1px solid var(--accent-blue) !important;
-    border-radius: 8px !important;
-    cursor: pointer;
-    font-weight: 600;
+.input-search:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.08);
 }
 
-/* --- BOUTON MAGIQUE (API) --- */
+/* --- SECTIONS ACTIONS --- */
 .magic-section {
-    text-align: center;
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
-.btn-magic {
-    background: linear-gradient(135deg, #a855f7 0%, #38bdf8 100%) !important;
-    color: white !important;
-    padding: 12px 25px !important;
-    border: none !important;
-    border-radius: 50px !important;
-    font-weight: 700 !important;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
 }
 
-.btn-magic:hover {
-    transform: translateY(-3px) scale(1.05);
+.filters a {
+    padding: 8px 16px;
+    font-size: 0.85rem;
 }
 
-/* --- FILTRES --- */
-.filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-.filters a { 
-    text-decoration: none; 
-    color: white; 
-    background: rgba(255, 255, 255, 0.05); 
-    padding: 8px 16px; 
-    border-radius: 8px; 
-    font-size: 0.9em; 
-    border: 1px solid rgba(56, 189, 248, 0.2); 
-    transition: 0.3s; 
-}
-.filters a:hover { background: var(--gradient-blue); }
-
-/* --- CARTES ET ANIMATIONS --- */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- CARTES DE CITATIONS --- */
+.quotes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .card { 
-    background: var(--card-dark); 
-    padding: 30px; 
-    border-radius: 20px; 
-    margin-bottom: 25px; 
+    background: var(--card-bg); 
+    padding: 40px; 
+    border-radius: 24px; 
     position: relative; 
-    border-left: 4px solid var(--accent-blue);
-    animation: fadeInUp 0.5s ease-out forwards;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease;
+    backdrop-filter: blur(12px);
+    transition: var(--transition);
 }
 
-.card:hover { transform: scale(1.01); }
+.card:hover {
+    transform: scale(1.02);
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(30, 41, 59, 0.9);
+}
 
-.quote-text { font-size: 1.3em; margin-bottom: 15px; color: #fff; display: block; }
-.quote-author { color: var(--text-muted); font-style: italic; margin-bottom: 10px; }
+.quote-text { 
+    font-size: 1.4rem; 
+    font-weight: 400;
+    margin-bottom: 20px; 
+    color: #fff; 
+    line-height: 1.4;
+}
+
+.quote-author { 
+    color: var(--text-muted); 
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 15px; 
+}
+
 .quote-category { 
-    font-size: 0.7em; 
-    font-weight: 700;
-    color: var(--accent-blue); 
-    border: 1px solid var(--accent-blue);
-    padding: 4px 10px;
-    border-radius: 6px;
+    font-size: 0.7rem; 
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--accent-primary); 
+    background: rgba(56, 189, 248, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
     text-transform: uppercase;
 }
 
-/* --- BOUTONS D'ACTION (COPIER & SUPPRIMER) --- */
+/* Actions spécifiques sur la carte */
 .copy-btn {
     position: absolute;
-    top: 15px;
-    right: 55px; 
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(56, 189, 248, 0.3) !important;
-    color: var(--accent-blue) !important;
-    padding: 5px 12px !important;
-    border-radius: 8px !important;
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    width: auto !important;
-    transition: all 0.3s ease !important;
-}
-
-.copy-btn:hover {
-    background: var(--accent-blue) !important;
-    color: var(--bg-dark) !important;
+    top: 20px;
+    right: 60px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
 }
 
 .delete-btn { 
     position: absolute; 
-    top: 10px; 
-    right: 15px; 
-    text-decoration: none; 
-    color: rgba(255, 255, 255, 0.2) !important; 
-    font-size: 1.6rem; 
-    transition: 0.3s;
+    top: 15px; 
+    right: 20px; 
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
-.delete-btn:hover { color: #ef4444 !important; transform: scale(1.2); }
+.delete-btn:hover { 
+    color: #f87171; 
+    transform: rotate(90deg);
+}
 
-/* --- FORMULAIRE D'AJOUT (LE GROS EN BAS) --- */
-form {
-    background: rgba(30, 41, 59, 0.7);
+/* --- FORMULAIRE D'AJOUT --- */
+form:not(.search-bar form) {
+    background: var(--card-bg);
     padding: 40px;
     border-radius: 24px;
-    margin-top: 60px;
+    margin-top: 80px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
 }
 
-form h3 { color: var(--accent-blue); margin-bottom: 20px; }
+form h3 { 
+    font-size: 1.5rem;
+    margin-bottom: 25px; 
+    text-align: center;
+    color: white;
+}
 
 form input, form select {
     width: 100%;
-    padding: 14px;
+    padding: 14px 18px;
     margin-bottom: 15px;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: white;
-    box-sizing: border-box;
-}
-
-button[type="submit"] {
-    width: 100%;
-    background: var(--gradient-blue);
-    color: white;
-    padding: 16px;
-    border: none;
     border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
+    color: white;
+    font-family: inherit;
+    transition: var(--transition);
 }
 
-button[type="submit"]:hover { filter: brightness(1.1); }
-
-.btn-random {
-    display: inline-block;
-    text-decoration: none;
-    background: rgba(255, 255, 255, 0.05) !important;
-    color: var(--accent-blue) !important;
-    padding: 12px 25px !important;
-    border: 1px solid var(--accent-blue) !important;
-    border-radius: 50px !important;
-    font-weight: 700 !important;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: 0.3s;
+form input:focus, form select:focus {
+    outline: none;
+    border-color: var(--accent-secondary);
 }
 
-.btn-random:hover {
-    background: var(--accent-blue) !important;
-    color: var(--bg-dark) !important;
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .search-bar form { flex-direction: column; }
+    .magic-section { flex-direction: column; }
+    .btn-random { margin-left: 0; }
 }
