@@ -4,7 +4,7 @@
 :root {
     --bg-dark: #0f252a;
     --card-bg: rgba(30, 41, 59, 0.7);
-    --accent-primary: #38bdf8; /* Bleu clair */
+    --accent-primary: #1fd115; /* Bleu clair */
     --accent-secondary: #a855f7; /* Violet */
     --gradient-main: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     --text-main: #f1f5f9;
